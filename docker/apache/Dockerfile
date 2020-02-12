@@ -32,7 +32,7 @@ RUN apt-get -y install \
   libapache2-mod-fcgid;
 
 #Enable installed apache modules
-RUN a2enmod alias actions fcgid proxy proxy_fcgi
+RUN a2enmod alias actions fcgid proxy proxy_fcgi rewrite
 
 # Copy apache vhost file to proxy php requests to php-fpm container
 COPY dareffort.conf /usr/local/apache2/conf/dareffort.apache.conf
