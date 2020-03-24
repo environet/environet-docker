@@ -28,6 +28,9 @@ services:
     depends_on:
       - db_postgresql
     container_name: "dareffort_php"
+    environment:
+      - VIRTUAL_HOST=dareffort.s4.srg.hu
+      - XDEBUG_CONFIG=remote_host=172.17.0.1 remote_enable=On
 
   apache:
     build:
