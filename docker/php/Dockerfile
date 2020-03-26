@@ -12,7 +12,8 @@ RUN apt-get -y upgrade
 #Install some basic lpackages
 RUN apt-get -y install nano;
 
-#Install PG lib
+#Install PG lib and postgres client
+RUN apt-get -y install postgresql-client
 RUN apt-get -y install libpq-dev
 
 #Install and enable xdebug
