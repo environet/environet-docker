@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker-compose exec php bash -c "/var/www/html/bin/plugin $1 $2 $3"
