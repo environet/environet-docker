@@ -22,7 +22,7 @@ services:
     networks:
       - backend
     volumes:
-      - ${SRC_ROOT}/../logs/php:/logs
+      - ${SRC_ROOT}/logs/php:/logs
       - ${SRC_ROOT}:/var/www/html/
       - phpsocket:/var/run/php
     depends_on:
@@ -43,7 +43,7 @@ services:
     ports:
       - "${HOST_PORT}:80"
     volumes:
-      - ${SRC_ROOT}/../logs/apache:/logs
+      - ${SRC_ROOT}/logs/apache:/logs
       - ${SRC_ROOT}:/var/www/html
       - phpsocket:/var/run/php
     container_name: "dareffort_apache"
