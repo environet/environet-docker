@@ -1,5 +1,40 @@
 #!/bin/bash
 
+ENV_FILE=".env"
+
+# Determine compose file location and php service name based on the first argument, which should be 'data' or 'dist'
+case $1 in
+  data)
+      COMPOSE_FILE="./docker/docker-compose.data.yml"
+      SERVICE_NAME="data_php"
+      ;;
+  dist)
+      COMPOSE_FILE="./docker/docker-compose.distribution.yml"
+      SERVICE_NAME="dist_php"
+      ;;
+esac
+
+# Exit with error if $1 is empty, or invalid
+if [[ -z $COMPOSE_FILE ]]
+then
+  echo "Error: Use data or dist as first argument!"
+  exit 1
+fi
+
+# If $2 is up, do not forward command to the container, just start the services
+if [[ $2 = "up" ]]
+then
+  docker-compose --env-file $ENV_FILE -f $COMPOSE_FILE up -d
+  exit 0
+fi
+
+# If $2 is down, do not forward command to the container, just stop the services
+if [[ $2 = "down" ]]
+then
+  docker-compose --env-file $ENV_FILE -f $COMPOSE_FILE down
+  exit 0
+fi
+
 # TODO Pass all arguments. $@ doesn't seem to work...
-docker-compose exec datanode bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
+docker-compose --env-file $ENV_FILE -f $COMPOSE_FILE exec $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
 
