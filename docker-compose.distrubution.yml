@@ -14,6 +14,7 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    container_name: "dareffort_postgresql"
 
   php:
     build:
@@ -30,7 +31,6 @@ services:
     environment:
       - VIRTUAL_HOST=dareffort.s4.srg.hu
 
-
   apache:
     build:
       context: ./docker/apache
@@ -46,6 +46,7 @@ services:
       - ${SRC_ROOT}/logs/apache:/logs
       - ${SRC_ROOT}:/var/www/html
       - phpsocket:/var/run/php
+    container_name: "dareffort_apache"
     environment:
       - VIRTUAL_HOST=dareffort.s4.srg.hu
 
