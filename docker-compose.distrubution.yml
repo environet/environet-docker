@@ -14,7 +14,6 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    container_name: "dareffort_postgresql"
 
   php:
     build:
@@ -22,7 +21,7 @@ services:
     networks:
       - backend
     volumes:
-      - ${SRC_ROOT}/../logs/php:/logs
+      - ${SRC_ROOT}/logs/php:/logs
       - ${SRC_ROOT}:/var/www/html/
       - phpsocket:/var/run/php
     depends_on:
@@ -30,6 +29,7 @@ services:
     container_name: "dareffort_php"
     environment:
       - VIRTUAL_HOST=dareffort.s4.srg.hu
+
 
   apache:
     build:
@@ -43,10 +43,9 @@ services:
     ports:
       - "${HOST_PORT}:80"
     volumes:
-      - ${SRC_ROOT}/../logs/apache:/logs
+      - ${SRC_ROOT}/logs/apache:/logs
       - ${SRC_ROOT}:/var/www/html
       - phpsocket:/var/run/php
-    container_name: "dareffort_apache"
     environment:
       - VIRTUAL_HOST=dareffort.s4.srg.hu
 
