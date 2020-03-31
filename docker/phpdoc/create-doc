@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+rm -rf /var/www/html/doc/code/* && phpdoc -d /var/www/html/sys -t /var/www/html/doc/code
