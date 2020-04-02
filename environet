@@ -21,7 +21,7 @@ esac
 # Exit with error if $1 is empty, or invalid
 if [[ -z $COMPOSE_FILE ]]
 then
-  echo "Error: Use data or dist as first argument!"
+  echo "Error: Use data, dist or doc as first argument!"
   exit 1
 fi
 
