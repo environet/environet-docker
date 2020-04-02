@@ -14,7 +14,6 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    container_name: "dist_database"
 
   dist_php:
     build:
@@ -27,7 +26,6 @@ services:
       - phpsocket:/var/run/php
     depends_on:
       - dist_database
-    container_name: "dist_php"
 
   dist_apache:
     build:
@@ -39,12 +37,11 @@ services:
       - backend
       - frontend
     ports:
-      - "${HOST_PORT}:80"
+      - ${HOST_PORT}:80
     volumes:
       - ../${SRC_ROOT}/logs/apache:/logs
       - ../${SRC_ROOT}:/var/www/html
       - phpsocket:/var/run/php
-    container_name: "dist_apache"
 
 volumes:
   phpsocket:
