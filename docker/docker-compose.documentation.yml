@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  doc_php:
+    build:
+      context: ./phpdoc
+    volumes:
+      - ${SRC_ROOT}/logs/php:/logs
+      - ${SRC_ROOT}:/var/www/html/
+    container_name: "doc_php"

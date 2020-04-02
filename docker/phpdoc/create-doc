@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+phpdoc -d /var/www/html/sys -t /var/www/html/doc/code --template="clean"

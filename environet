@@ -2,7 +2,7 @@
 
 ENV_FILE=".env"
 
-# Determine compose file location and php service name based on the first argument, which should be 'data' or 'dist'
+# Determine compose file location and php service name based on the first argument, which should be 'data', 'dist' or 'doc'
 case $1 in
   data)
       COMPOSE_FILE="./docker/docker-compose.data.yml"
@@ -11,6 +11,10 @@ case $1 in
   dist)
       COMPOSE_FILE="./docker/docker-compose.distribution.yml"
       SERVICE_NAME="dist_php"
+      ;;
+  doc)
+      COMPOSE_FILE="./docker/docker-compose.documentation.yml"
+      SERVICE_NAME="doc_php"
       ;;
 esac
 
