@@ -4,10 +4,7 @@ services:
     build:
       context: ./data_php
     volumes:
-      - ../${LOCAL_DATA_DIR}:/meteringdata
-      - ../${SRC_ROOT}:/var/www/html/
+      - ../${LOCAL_DATA_DIR-}:/meteringdata:ro
+      - ../${SRC_ROOT-src}:/var/www/html/
       - ../conf/plugins:/var/www/html/conf/plugins
     command: tail -f /dev/null
-#    network_mode: host
-#    environment:
-#      - XDEBUG_CONFIG=remote_host=172.0.0.1 remote_enable=On
