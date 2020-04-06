@@ -13,6 +13,7 @@ services:
       - ${DB_HOST_PORT-5432}:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: always
 
   dist_php:
     build:
@@ -26,6 +27,7 @@ services:
       - phpsocket:/var/run/php
     depends_on:
       - dist_database
+    restart: always
 
   dist_apache:
     build:
@@ -42,6 +44,7 @@ services:
       - ../${SRC_ROOT-src}/logs/apache:/logs
       - ../${SRC_ROOT-src}:/var/www/html
       - phpsocket:/var/run/php
+    restart: always
 
 volumes:
   phpsocket:
