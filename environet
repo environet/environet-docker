@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Set the userid to run docker-compose script as. This is so that files created in a container are
+CURRENT_UID=$(id -u):$(id -g)
+export CURRENT_UID
+
 # Determine compose file location and php service name based on the first argument, which should be 'data', 'dist' or 'doc'
 case $1 in
   data)

@@ -8,3 +8,4 @@ services:
       - ../${SRC_ROOT-src}:/var/www/html/
       - ../conf/plugins:/var/www/html/conf/plugins
     command: tail -f /dev/null
+    user: ${CURRENT_UID}
