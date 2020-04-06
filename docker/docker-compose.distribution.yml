@@ -26,7 +26,6 @@ services:
       - phpsocket:/var/run/php
     depends_on:
       - dist_database
-    user: ${CURRENT_UID}
 
   dist_apache:
     build:

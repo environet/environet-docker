@@ -28,7 +28,6 @@ then
 fi
 
 start_services () {
-  echo "starting project $1"
   docker-compose -p "$1" -f $COMPOSE_FILE up -d
 
   if [[ $? != 0 ]]
