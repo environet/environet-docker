@@ -22,3 +22,8 @@ RUN docker-php-ext-enable xdebug
 
 #Install and enable pg and pdo libraries
 RUN docker-php-ext-install pdo pdo_pgsql pgsql
+
+#Install zip extension for PHP
+RUN apt-get install -y zlib1g-dev
+RUN apt-get install -y libzip-dev
+RUN docker-php-ext-install zip
