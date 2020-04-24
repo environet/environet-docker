@@ -4,6 +4,6 @@ services:
     build:
       context: ./phpdoc
     volumes:
-      - ${SRC_ROOT}/logs/php:/logs
-      - ${SRC_ROOT}:/var/www/html/
+      - ../${SRC_ROOT-src}/logs/php:/logs
+      - ../${SRC_ROOT-src}:/var/www/html/
     container_name: "doc_php"

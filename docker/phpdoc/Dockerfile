@@ -2,7 +2,7 @@ FROM php:7.4
 
 #Create documentation script
 COPY create-doc /usr/local/bin/create-doc
-
+RUN chmod +x /usr/local/bin/create-doc
 RUN apt-get update
 RUN apt-get -y upgrade
 
