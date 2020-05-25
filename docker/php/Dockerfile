@@ -3,9 +3,6 @@ FROM php:7.4-fpm-buster
 #Some overwrites of the php-fpm pool (which called zz-docker.conf
 COPY zzz-docker.conf /usr/local/etc/php-fpm.d/
 
-#Add debian repositores
-RUN echo "deb http://ftp.de.debian.org/debian buster main" >> /etc/apt/sources.list
-
 RUN apt-get update
 RUN apt-get -y upgrade
 
