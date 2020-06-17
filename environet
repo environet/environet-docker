@@ -28,7 +28,7 @@ then
 fi
 
 start_services () {
-  docker-compose -p "$1" -f $COMPOSE_FILE up -d
+  docker-compose -p environet -f $COMPOSE_FILE up -d
 
   if [[ $? != 0 ]]
   then
@@ -48,14 +48,20 @@ fi
 # If $2 is down, do not forward command to the container, just stop the services
 if [[ $2 = "down" ]]
 then
-  docker-compose -p "$1" -f $COMPOSE_FILE down
+  docker-compose -p environet -f $COMPOSE_FILE down
+  exit 0
+fi
+
+if [[ $2 = "stop" ]]
+then
+  docker-compose -p environet -f $COMPOSE_FILE stop
   exit 0
 fi
 
 start_services $1
 
 # TODO Pass all arguments. $@ doesn't seem to work...
-docker-compose -p "$1" -f $COMPOSE_FILE exec $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
+docker-compose -p environet -f $COMPOSE_FILE exec $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
 
 if [[ $? != 0 ]]
 then

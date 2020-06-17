@@ -10,3 +10,7 @@ services:
     command: tail -f /dev/null
     user: ${CURRENT_UID}
     restart: always
+    network_mode: host
+    environment:
+      ENVIRONET_PLUGIN_CONF_DIR: 'conf/plugins'
+      LOCAL_DATA_DIR: ${LOCAL_DATA_DIR-}
