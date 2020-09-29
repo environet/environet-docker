@@ -61,7 +61,7 @@ fi
 start_services $1
 
 # TODO Pass all arguments. $@ doesn't seem to work...
-docker-compose -p environet -f $COMPOSE_FILE exec $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
+docker-compose -p environet -f $COMPOSE_FILE exec -T $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
 
 if [[ $? != 0 ]]
 then
