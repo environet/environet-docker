@@ -60,6 +60,23 @@ fi
 
 start_services $1
 
+
+if [[ $2 = "bash" ]]
+then
+  case $1 in
+    data)
+        docker-compose -p environet -f $COMPOSE_FILE exec data_php bash
+        ;;
+    dist)
+        docker-compose -p environet -f $COMPOSE_FILE exec dist_php bash
+        ;;
+    doc)
+        docker-compose -p environet -f $COMPOSE_FILE exec doc_php bash
+        ;;
+  esac
+  exit 0
+fi
+
 # TODO Pass all arguments. $@ doesn't seem to work...
 docker-compose -p environet -f $COMPOSE_FILE exec $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
 
