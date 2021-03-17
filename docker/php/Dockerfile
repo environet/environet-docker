@@ -2,6 +2,7 @@ FROM php:7.4-fpm-buster
 
 #Some overwrites of the php-fpm pool (which called zz-docker.conf
 COPY zzz-docker.conf /usr/local/etc/php-fpm.d/
+COPY environet.ini "$PHP_INI_DIR/conf.d/environet.ini"
 
 RUN apt-get update
 RUN apt-get -y upgrade
