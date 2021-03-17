@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-q3DW7Ptb}
       POSTGRES_DB: ${POSTGRES_DB:-environet}
     ports:
-      - ${DB_HOST_PORT-5432}:5432
+      - ${DB_HOST_PORT:-5432}:5432
     volumes:
       - dist_postgres_data:/var/lib/postgresql/data
     restart: always
@@ -40,7 +40,7 @@ services:
       - dist_php
       - dist_database
     ports:
-      - ${HOST_PORT-80}:80
+      - ${HOST_PORT:-80}:80
     volumes:
       - ${SRC_ROOT:-../src}/logs/apache:/logs
       - ${SRC_ROOT:-../src}:/var/www/html

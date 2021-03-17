@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ENV_FILE=".env"
+
 # Set the userid to run docker-compose script as. This is so that files created in a container are
 CURRENT_UID=$(id -u):$(id -g)
 export CURRENT_UID
@@ -28,7 +30,11 @@ then
 fi
 
 start_services () {
-  docker-compose -p environet -f $COMPOSE_FILE up -d
+  if [[ -e $ENV_FILE ]]; then
+    docker-compose --env-file "./../"$ENV_FILE -p environet -f $COMPOSE_FILE up -d
+  else
+    docker-compose -p environet -f $COMPOSE_FILE up -d
+  fi
 
   if [[ $? != 0 ]]
   then
