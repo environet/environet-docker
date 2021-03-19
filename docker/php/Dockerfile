@@ -1,8 +1,9 @@
 FROM php:7.4-fpm-buster
 
+ARG XDEBUG_MODE
+
 #Some overwrites of the php-fpm pool (which called zz-docker.conf
 COPY zzz-docker.conf /usr/local/etc/php-fpm.d/
-COPY environet.ini "$PHP_INI_DIR/conf.d/environet.ini"
 
 RUN apt-get update
 RUN apt-get -y upgrade
@@ -25,3 +26,6 @@ RUN docker-php-ext-enable xdebug
 
 #Install and enable pg and pdo librariesex
 RUN docker-php-ext-install pdo pdo_pgsql pgsql
+
+COPY environet.ini "${PHP_INI_DIR}/conf.d/environet.ini"
+RUN echo "xdebug.mode=${XDEBUG_MODE}" > ${PHP_INI_DIR}/conf.d/xdebug.ini

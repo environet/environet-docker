@@ -16,6 +16,8 @@ services:
   dist_php:
     build:
       context: ./php
+      args:
+        XDEBUG_MODE: ${XDEBUG_MODE:-off}
     volumes:
       - ../conf:/var/www/html/conf
       - ${SRC_ROOT:-../src}/logs/php:/logs
