@@ -20,6 +20,7 @@ services:
         XDEBUG_MODE: ${XDEBUG_MODE:-off}
     volumes:
       - ../conf:/var/www/html/conf
+      - ../data/export:/var/www/html/data/export
       - ${SRC_ROOT:-../src}/logs/php:/logs
       - ${SRC_ROOT:-../src}:/var/www/html/
       - dist_phpsocket:/var/run/php
