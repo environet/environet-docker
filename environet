@@ -3,6 +3,34 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ENV_FILE=$SCRIPT_DIR/".env"
 
+if [[ ! -f $ENV_FILE ]];
+then
+  printf "Error: .env file doesn't exist. You have to create one, based on the .env.example file"
+  exit 1
+fi
+
+POSTGRES_USER=$(grep '^POSTGRES_USER=' "$ENV_FILE" | cut -d '=' -f2)
+POSTGRES_PASSWORD=$(grep '^POSTGRES_PASSWORD=' "$ENV_FILE" | cut -d '=' -f2)
+POSTGRES_DB=$(grep '^POSTGRES_DB=' "$ENV_FILE" | cut -d '=' -f2)
+
+ENV_ERROR=0
+if [[ -z "$POSTGRES_USER" ]]; then
+  printf "\033[0;31mPOSTGRES_USER must be defined in .env file\033[0m\n"
+  ENV_ERROR=1
+fi
+if [[ -z "$POSTGRES_PASSWORD" ]]; then
+  printf "\033[0;31mPOSTGRES_PASSWORD must be defined in .env file\033[0m\n"
+  ENV_ERROR=1
+fi
+if [[ -z "$POSTGRES_DB" ]]; then
+  printf "\033[0;31mPOSTGRES_DB must be defined in .env file\033[0m\n"
+  ENV_ERROR=1
+fi
+
+if [[ $ENV_ERROR -gt 0 ]]; then
+  exit 1;
+fi
+
 # Set the userid to run docker-compose script as. This is so that files created in a container are
 CURRENT_UID=$(id -u):$(id -g)
 export CURRENT_UID
@@ -31,16 +59,12 @@ then
 fi
 
 start_services () {
-  if [[ -e $ENV_FILE ]]; then
-    docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE up -d
-  else
-    docker-compose -p environet -f $COMPOSE_FILE up -d
-  fi
+  docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE up -d
 
   if [[ $? != 0 ]]
   then
     echo
-    echo -e "\e[31mCould not start services"
+    printf "\033[0;31mCould not start services\033[0m\n"
     exit 1
   fi
 }
@@ -55,24 +79,40 @@ fi
 # If $2 is down, do not forward command to the container, just stop the services
 if [[ $2 = "down" ]]
 then
-  docker-compose -p environet -f $COMPOSE_FILE down
+  docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE down
   exit 0
 fi
 
 if [[ $2 = "stop" ]]
 then
-  docker-compose -p environet -f $COMPOSE_FILE stop
+  docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE stop
   exit 0
 fi
 
 start_services $1
 
+if [[ $2 = "bash" ]]
+then
+  case $1 in
+    data)
+        docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec data_php bash
+        ;;
+    dist)
+        docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec dist_php bash
+        ;;
+    doc)
+        docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec doc_php bash
+        ;;
+  esac
+  exit 0
+fi
+
 # TODO Pass all arguments. $@ doesn't seem to work...
-docker-compose -p environet -f $COMPOSE_FILE exec -T $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
+docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -T $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
 
 if [[ $? != 0 ]]
 then
   echo
-  echo -e "\e[31mAn error occured while running your command. There may be additional information above." >&2
+  printf "\033[0;31mAn error occured while running your command. There may be additional information above.\033[0m\n"
   exit 1
 fi

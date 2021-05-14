@@ -4,9 +4,9 @@ services:
     build:
       context: ./postgres
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-environet}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-q3DW7Ptb}
-      POSTGRES_DB: ${POSTGRES_DB:-environet}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - ${DB_HOST_PORT:-5432}:5432
     volumes:
@@ -28,12 +28,12 @@ services:
     restart: always
     environment:
       ENVIRONET_HOST_CONF_DIR: ../conf
-      ENVIRONET_TIMEZONE: ${ENVIRONET_TIMEZONE}
+      ENVIRONET_TIMEZONE: ${ENVIRONET_TIMEZONE:-}
       ENVIRONET_DB_HOST: 'dist_database'
       ENVIRONET_DB_PORT: 5432
-      ENVIRONET_DB_NAME: ${POSTGRES_DB:-environet}
-      ENVIRONET_DB_USER: ${POSTGRES_USER:-environet}
-      ENVIRONET_DB_PASSWORD: ${POSTGRES_PASSWORD:-q3DW7Ptb}
+      ENVIRONET_DB_NAME: ${POSTGRES_DB}
+      ENVIRONET_DB_USER: ${POSTGRES_USER}
+      ENVIRONET_DB_PASSWORD: ${POSTGRES_PASSWORD}
 
   dist_apache:
     build:
