@@ -57,7 +57,7 @@ services:
       - ../data/logrotate-status:/logrotate-status
     environment:
       LOGS_DIRECTORIES: /logs
-      LOGROTATE_INTERVAL: hourly
+      LOGROTATE_INTERVAL: weekly
       LOGROTATE_COPIES: 10
 
 volumes:
