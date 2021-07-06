@@ -10,7 +10,7 @@ services:
     ports:
       - ${DB_HOST_PORT:-5432}:5432
     volumes:
-      - dist_postgres_data:/var/lib/postgresql/data
+      - ../data/postgres:/var/lib/postgresql/data
     restart: always
 
   dist_php:
@@ -62,7 +62,6 @@ services:
 
 volumes:
   dist_phpsocket:
-  dist_postgres_data:
 
 networks:
   default:
