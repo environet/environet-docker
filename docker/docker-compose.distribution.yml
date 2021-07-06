@@ -50,6 +50,16 @@ services:
       - dist_phpsocket:/var/run/php
     restart: always
 
+  dist_logrotate:
+    image: blacklabelops/logrotate
+    volumes:
+      - ${SRC_ROOT:-../src}/logs:/logs
+      - ../data/logrotate-status:/logrotate-status
+    environment:
+      LOGS_DIRECTORIES: /logs
+      LOGROTATE_INTERVAL: hourly
+      LOGROTATE_COPIES: 10
+
 volumes:
   dist_phpsocket:
   dist_postgres_data:
