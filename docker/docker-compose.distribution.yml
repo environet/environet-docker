@@ -55,6 +55,10 @@ services:
     volumes:
       - ${SRC_ROOT:-../src}/logs:/logs
       - ../data/logrotate-status:/logrotate-status
+    depends_on:
+      - dist_php
+      - dist_database
+      - dist_apache
     environment:
       LOGS_DIRECTORIES: /logs
       LOGROTATE_INTERVAL: weekly
