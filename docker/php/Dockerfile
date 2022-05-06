@@ -20,12 +20,18 @@ RUN apt-get update
 RUN apt-get -y install postgresql-client-12
 RUN apt-get -y install libpq-dev
 
+#Install pandoc for html generation from md
+RUN apt-get -y install pandoc
+
+#Install zip package
+RUN apt-get -y install libzip-dev
+
 #Install and enable xdebug
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 
 #Install and enable pg and pdo librariesex
-RUN docker-php-ext-install pdo pdo_pgsql pgsql
+RUN docker-php-ext-install pdo pdo_pgsql pgsql zip
 
 COPY environet.ini "${PHP_INI_DIR}/conf.d/environet.ini"
 RUN echo "xdebug.mode=${XDEBUG_MODE}" > ${PHP_INI_DIR}/conf.d/xdebug.ini

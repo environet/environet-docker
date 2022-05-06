@@ -83,6 +83,13 @@ then
   exit 0
 fi
 
+# If $2 is build, do not forward command to the container, just build the container
+if [[ $2 = "build" ]]
+then
+  docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE build
+  exit 0
+fi
+
 if [[ $2 = "stop" ]]
 then
   docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE stop
@@ -90,6 +97,12 @@ then
 fi
 
 start_services $1
+
+if [[ $2 = "generate-merged-html" ]]
+then
+  docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec dist_php php /var/www/html/doc/generate_merged_html.php
+  exit 0
+fi
 
 if [[ $2 = "bash" ]]
 then
