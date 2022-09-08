@@ -1,5 +1,11 @@
 #!/bin/bash
 
+CMD="docker compose"
+if command -v docker-compose &> /dev/null
+then
+  CMD="docker-compose"
+fi
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ENV_FILE=$SCRIPT_DIR/".env"
 
@@ -62,7 +68,7 @@ then
 fi
 
 start_services () {
-  docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE up -d
+  $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE up -d
 
   if [[ $? != 0 ]]
   then
@@ -82,20 +88,20 @@ fi
 # If $2 is down, do not forward command to the container, just stop the services
 if [[ $2 = "down" ]]
 then
-  docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE down
+  $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE down
   exit 0
 fi
 
 # If $2 is build, do not forward command to the container, just build the container
 if [[ $2 = "build" ]]
 then
-  docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE build
+  $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE build
   exit 0
 fi
 
 if [[ $2 = "stop" ]]
 then
-  docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE stop
+  $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE stop
   exit 0
 fi
 
@@ -103,7 +109,7 @@ start_services $1
 
 if [[ $2 = "generate-merged-html" ]]
 then
-  docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec dist_php php /var/www/html/doc/generate_merged_html.php
+  $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec dist_php php /var/www/html/doc/generate_merged_html.php
   exit 0
 fi
 
@@ -111,20 +117,20 @@ if [[ $2 = "bash" ]]
 then
   case $1 in
     data)
-        docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec data_php bash
+        $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec data_php bash
         ;;
     dist)
-        docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec dist_php bash
+        $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec dist_php bash
         ;;
     doc)
-        docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec doc_php bash
+        $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec doc_php bash
         ;;
   esac
   exit 0
 fi
 
 # TODO Pass all arguments. $@ doesn't seem to work...
-docker-compose --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -T $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
+$CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -T $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
 
 if [[ $? != 0 ]]
 then
