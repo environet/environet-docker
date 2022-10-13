@@ -8,7 +8,7 @@ SET arg3=%3
 SET arg4=%4
 
 rem get the env file location
-SET envFile=%cd%\.env
+SET envFile="%cd%\.env"
 
 rem if not exists, abort
 IF NOT EXIST %envFile% (
