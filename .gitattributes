@@ -2,3 +2,5 @@
 
 *.* text eol=lf
 /.idea/* text eol=crlf
+
+/src/*.* text eol=lf
