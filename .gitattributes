@@ -2,5 +2,3 @@
 
 *.* text eol=lf
 /.idea/* text eol=crlf
-
-/src/bin/* text eol=lf
