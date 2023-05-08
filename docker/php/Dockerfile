@@ -27,7 +27,7 @@ RUN apt-get -y install pandoc
 RUN apt-get -y install libzip-dev
 
 #Install and enable xdebug
-RUN pecl install xdebug
+RUN pecl install xdebug-3.1.5
 RUN docker-php-ext-enable xdebug
 
 #Install and enable pg and pdo librariesex
