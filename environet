@@ -130,7 +130,7 @@ then
 fi
 
 # TODO Pass all arguments. $@ doesn't seem to work...
-$CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -T $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4"
+$CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -T $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4 $5 $6 $7 $8"
 
 if [[ $? != 0 ]]
 then
