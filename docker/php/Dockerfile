@@ -18,7 +18,7 @@ RUN apt-get update
 
 #Install PG lib and postgres client
 RUN apt-get -y install postgresql-client-12
-RUN apt-get -y install libpq-dev
+RUN apt-get -y install libpq-dev libssh2-1-dev libssh2-1
 
 #Install pandoc for html generation from md
 RUN apt-get -y install pandoc
@@ -28,7 +28,8 @@ RUN apt-get -y install libzip-dev
 
 #Install and enable xdebug
 RUN pecl install xdebug-3.1.5
-RUN docker-php-ext-enable xdebug
+RUN pecl install ssh2
+RUN docker-php-ext-enable xdebug ssh2
 
 #Install and enable pg and pdo librariesex
 RUN docker-php-ext-install pdo pdo_pgsql pgsql zip
