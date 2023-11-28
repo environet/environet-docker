@@ -109,7 +109,7 @@ start_services $1
 
 if [[ $2 = "generate-merged-html" ]]
 then
-  $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec dist_php php /var/www/html/doc/generate_merged_html.php
+  $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -u root dist_php php /var/www/html/doc/generate_merged_html.php
   exit 0
 fi
 
@@ -117,20 +117,20 @@ if [[ $2 = "bash" ]]
 then
   case $1 in
     data)
-        $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec data_php bash
+        $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -u root data_php bash
         ;;
     dist)
-        $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec dist_php bash
+        $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -u root dist_php bash
         ;;
     doc)
-        $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec doc_php bash
+        $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -u root doc_php bash
         ;;
   esac
   exit 0
 fi
 
 # TODO Pass all arguments. $@ doesn't seem to work...
-$CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -T $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4 $5 $6 $7 $8"
+$CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE exec -u root -T $SERVICE_NAME bash -c "/var/www/html/bin/environet $1 $2 $3 $4 $5 $6 $7 $8"
 
 if [[ $? != 0 ]]
 then
