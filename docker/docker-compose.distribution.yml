@@ -62,6 +62,8 @@ services:
       LOGS_DIRECTORIES: /logs
       LOGROTATE_INTERVAL: weekly
       LOGROTATE_COPIES: 10
+      LOGROTATE_COMPRESSION: compress
+    restart: always
 
 volumes:
   dist_phpsocket:
