@@ -1,10 +1,6 @@
 #!/bin/bash
 
 CMD="docker compose"
-if command -v docker-compose &> /dev/null
-then
-  CMD="docker-compose"
-fi
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ENV_FILE=$SCRIPT_DIR/".env"
@@ -56,7 +52,7 @@ if [[ $ENV_ERROR -gt 0 ]]; then
   exit 1;
 fi
 
-# Set the userid to run docker-compose script as. This is so that files created in a container are
+# Set the userid to run docker compose script as. This is so that files created in a container are
 CURRENT_UID=$(id -u):$(id -g)
 export CURRENT_UID
 
