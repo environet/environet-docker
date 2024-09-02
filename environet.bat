@@ -70,31 +70,31 @@ IF NOT "%ERROR%"=="" (
 SET "CURRENT_UID=root:root"
 
 IF /I "%composeParam%"=="up" (
-	docker-compose --env-file %envFile% -p environet -f %COMPOSE_FILE% up -d
+	docker compose --env-file %envFile% -p environet -f %COMPOSE_FILE% up -d
 	goto :eof
 )
 IF /I "%composeParam%"=="down" (
-	docker-compose --env-file %envFile% -p environet -f %COMPOSE_FILE% down
+	docker compose --env-file %envFile% -p environet -f %COMPOSE_FILE% down
 	goto :eof
 )
 IF /I "%composeParam%"=="build" (
-	docker-compose --env-file %envFile% -p environet -f %COMPOSE_FILE% build
+	docker compose --env-file %envFile% -p environet -f %COMPOSE_FILE% build
 	goto :eof
 )
 IF /I "%composeParam%"=="stop" (
-	docker-compose --env-file %envFile% -p environet -f %COMPOSE_FILE% stop
+	docker compose --env-file %envFile% -p environet -f %COMPOSE_FILE% stop
 	goto :eof
 )
 
-docker-compose --env-file %envFile% -p environet -f %COMPOSE_FILE% up -d
+docker compose --env-file %envFile% -p environet -f %COMPOSE_FILE% up -d
 
 IF /I "%composeParam%"=="generate-merged-html" (
-	docker-compose --env-file %envFile% -p environet -f %COMPOSE_FILE% exec dist_php php /var/www/html/doc/generate_merged_html.php
+	docker compose --env-file %envFile% -p environet -f %COMPOSE_FILE% exec dist_php php /var/www/html/doc/generate_merged_html.php
 	goto :eof
 )
 IF /I "%composeParam%"=="bash" (
-	docker-compose --env-file %envFile% -p environet -f %COMPOSE_FILE% exec %SERVICE_NAME% bash
+	docker compose --env-file %envFile% -p environet -f %COMPOSE_FILE% exec %SERVICE_NAME% bash
 	goto :eof
 )
 
-docker-compose --env-file %envFile% -p environet -f %COMPOSE_FILE% exec -T %SERVICE_NAME% bash -c "/var/www/html/bin/environet %mode% %composeParam% %arg3% %arg4%"
+docker compose --env-file %envFile% -p environet -f %COMPOSE_FILE% exec -T %SERVICE_NAME% bash -c "/var/www/html/bin/environet %mode% %composeParam% %arg3% %arg4%"
