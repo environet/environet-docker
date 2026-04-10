@@ -30,7 +30,7 @@ git ...
 docker-compose --env-file=.env -p environet -f docker/docker-compose.distribution.yml build dist_database
 
 # Start the services
-./environet dist up -d
+./environet dist up
 ```
 
 ### Step 4: Import Data
