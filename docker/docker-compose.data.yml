@@ -9,7 +9,7 @@ services:
       - ${SRC_ROOT:-../src}:/var/www/html/
       - ../conf:/var/www/html/conf
     command: tail -f /dev/null
-    user: ${CURRENT_UID}
+    user: ${CURRENT_UID:-}
     restart: always
     network_mode: host
     environment:
