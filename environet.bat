@@ -6,6 +6,11 @@ SET mode=%1
 SET composeParam=%2
 SET arg3=%3
 SET arg4=%4
+SET arg5=%5
+SET arg6=%6
+SET arg7=%7
+SET arg8=%8
+SET arg9=%9
 
 rem get the env file location
 SET envFile="%cd%\.env"
@@ -78,7 +83,7 @@ IF /I "%composeParam%"=="down" (
 	goto :eof
 )
 IF /I "%composeParam%"=="build" (
-	docker compose --env-file %envFile% -p environet -f %COMPOSE_FILE% build
+	docker compose --env-file %envFile% -p environet -f %COMPOSE_FILE% build %arg3% %arg4% %arg5% %arg6% %arg7% %arg8% %arg9%
 	goto :eof
 )
 IF /I "%composeParam%"=="stop" (

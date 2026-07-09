@@ -91,7 +91,9 @@ fi
 # If $2 is build, do not forward command to the container, just build the container
 if [[ $2 = "build" ]]
 then
-  $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE build
+  # Pass all additional arguments starting from $3 onwards to the build command
+  shift 2
+  $CMD --env-file "$ENV_FILE" -p environet -f $COMPOSE_FILE build "$@"
   exit 0
 fi
 
