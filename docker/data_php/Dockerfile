@@ -10,7 +10,7 @@ RUN docker-php-ext-install zip
 
 #Install and enable xdebug
 RUN pecl install xdebug-3.1.5
-RUN pecl install ssh2
+RUN pecl install ssh2-1.3.1
 RUN docker-php-ext-enable xdebug zip ssh2
 
 RUN echo "xdebug.mode=${XDEBUG_MODE}" > ${PHP_INI_DIR}/conf.d/xdebug.ini
