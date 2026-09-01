@@ -28,7 +28,7 @@ RUN apt-get -y install \
   git \
   tzdata \
   openntpd \
-  php7.4 \
+  php8.4 \
   libapache2-mod-fcgid;
 
 #Enable installed apache modules
